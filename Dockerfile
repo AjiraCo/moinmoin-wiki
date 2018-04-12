@@ -19,8 +19,7 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   nginx \
   uwsgi \
   uwsgi-plugin-python \
-  rsyslog \
-  software-properties-common 
+  rsyslog 
 
 # RUN add-apt-repository ppa:certbot/certbot && apt-get update
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >/etc/apt/sources.list.d/cert_bot.list
@@ -63,7 +62,6 @@ RUN certbot --nginx # certonly
 # ADD generate_ssl_key.sh /usr/local/bin/
 # RUN /usr/local/bin/generate_ssl_key.sh wiki.ajira.world
 RUN cp /etc/letsencrypt/live/wiki.ajira.world/fullchain.pem /etc/ssl/certs/
-
 RUN mv /etc/letsencrypt/live/wiki.ajira.world/cert.pem /etc/ssl/certs/
 RUN mv /etc/letsencrypt/live/wiki.ajira.world/chain.pem /etc/ssl/certs/
 # RUN mv key.pem /etc/ssl/private/
