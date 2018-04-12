@@ -11,3 +11,14 @@ Default superuser is `mmAdmin`, you activate him by creating a new user named `m
 The pages are mounted as volume, so you can take backup of the system from the host.
 
 You can detach from the container session with `CTRL-Q+P` and then `CTRL-C`
+
+sudo docker run -it -p 443:443 -p 80:80 --name my_wiki olavgg/moinmoin-wiki
+
+Cloning and Modifying
+======================
+
+    git clone https://github.com/AjiraCo/moinmoin-wiki.git
+    cd moinmoin-wiki/    
+    docker build -t moinmoin .
+    docker run -it 443:443 -p 80:80 --name wiki -t moinmoin
+              
