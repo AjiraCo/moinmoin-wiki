@@ -65,9 +65,9 @@ RUN rm /etc/nginx/sites-enabled/default
 # RUN mv /etc/letsencrypt/live/wiki.ajira.world/cert.pem /etc/ssl/certs/
 # RUN mv /etc/letsencrypt/live/wiki.ajira.world/chain.pem /etc/ssl/certs/
 # RUN mv key.pem /etc/ssl/private/
-ADD /etc/letsencrypt/live/wiki.ajira.world/fullchain.pem /etc/ssl/certs/
-ADD /etc/letsencrypt/live/wiki.ajira.world/cert.pem /etc/ssl/certs/
-ADD /etc/letsencrypt/live/wiki.ajira.world/chain.pem /etc/ssl/certs/
+ADD fullchain.pem /etc/ssl/certs/
+ADD cert.pem /etc/ssl/certs/
+ADD chain.pem /etc/ssl/certs/
 
 # Cleanup
 RUN rm $MM_VERSION.tar.gz
