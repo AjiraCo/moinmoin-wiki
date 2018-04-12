@@ -58,7 +58,7 @@ RUN ln -s /etc/nginx/sites-available/moinmoin.conf \
 RUN rm /etc/nginx/sites-enabled/default
 
 # Create self signed certificate
-RUN certbot --standalone --email nyimbi@gmail.com -d wiki.ajira.world #--nginx # certonly
+RUN certbot certonly --standalone --email nyimbi@gmail.com -d wiki.ajira.world #--nginx # certonly
 # ADD generate_ssl_key.sh /usr/local/bin/
 # RUN /usr/local/bin/generate_ssl_key.sh wiki.ajira.world
 RUN cp /etc/letsencrypt/live/wiki.ajira.world/fullchain.pem /etc/ssl/certs/
