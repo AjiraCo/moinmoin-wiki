@@ -5,7 +5,7 @@
 # TO_RUN:         docker run -it -p 80:80 -p 443:443 --name my_wiki moinmoin
 
 FROM debian:jessie
-MAINTAINER Olav Grønås Gjerde <olav@backupbay.com>
+MAINTAINER Nyimbi Odero <nyimbi.odero@ict.go.ke>
 
 # Set the version you want of MoinMoin
 ENV MM_VERSION 1.9.8
@@ -19,7 +19,11 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   nginx \
   uwsgi \
   uwsgi-plugin-python \
-  rsyslog
+  rsyslog \
+  software-properties-common 
+
+RUN add-apt-repository ppa:certbot/certbot && apt-get update
+RUN apt-get install python-certbot-nginx
 
 # Download MoinMoin
 RUN curl -Ok \
@@ -52,10 +56,14 @@ RUN ln -s /etc/nginx/sites-available/moinmoin.conf \
 RUN rm /etc/nginx/sites-enabled/default
 
 # Create self signed certificate
+RUN certbot --nginx certonly
 ADD generate_ssl_key.sh /usr/local/bin/
-RUN /usr/local/bin/generate_ssl_key.sh moinmoin.example.org
-RUN mv cert.pem /etc/ssl/certs/
-RUN mv key.pem /etc/ssl/private/
+RUN /usr/local/bin/generate_ssl_key.sh wiki.ajira.world
+RUN cp /etc/letsencrypt/live/wiki.ajira.world/fullchain.pem /etc/ssl/certs/
+
+RUN mv /etc/letsencrypt/live/wiki.ajira.world/cert.pem /etc/ssl/certs/
+RUN mv /etc/letsencrypt/live/wiki.ajira.world/chain.pem /etc/ssl/certs/
+# RUN mv key.pem /etc/ssl/private/
 
 # Cleanup
 RUN rm $MM_VERSION.tar.gz
