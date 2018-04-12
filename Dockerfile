@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
   software-properties-common 
 
 # RUN add-apt-repository ppa:certbot/certbot && apt-get update
-RUN apt-get install certbot -t jessie-backports
+RUN apt-get install certbot # -t jessie-backports
 # RUN apt-get install -qqy --no-install-recommends python-certbot-nginx
 
 # Download MoinMoin
